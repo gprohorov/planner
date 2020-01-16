@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './view/categories/categories.component';
+import {DataHandlerService} from './service/data-handler.service';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { CategoriesComponent } from './view/categories/categories.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [DataHandlerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
