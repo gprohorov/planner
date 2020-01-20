@@ -5,12 +5,14 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './view/categories/categories.component';
 import {DataHandlerService} from './service/data-handler.service';
+import { TasksComponent } from './view/tasks/tasks.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule
