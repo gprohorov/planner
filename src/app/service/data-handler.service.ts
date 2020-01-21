@@ -3,13 +3,17 @@ import {Category} from '../model/Category';
 import {Task} from '../model/Task';
 import {TestData} from '../data/TestData';
 import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class DataHandlerService {
 
-  taskSubject = new Subject<Task[]>();
+  taskSubject = new BehaviorSubject<Task[]>(TestData.tasks);
+  categoriesSubject = new BehaviorSubject<Category[]>(TestData.categories);
 
-  constructor() { }
+  constructor() {
+    this.fetchTasks();
+  }
 
   getCategories(): Category[] {
     return  TestData.categories;
