@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {Task} from '../../model/Task';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-tasks',
@@ -8,6 +9,9 @@ import {Task} from '../../model/Task';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
+
+  private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
+  private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
   tasks: Task[];
 
@@ -17,9 +21,31 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
   //  this.tasks = this.dataHandler.getTasks();
     this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
+
+    this.dataSource = new MatTableDataSource();
+
+    this.refreshTable();
   }
 
   toggleTaskCompleted(task: Task) {
     task.completed = !task.completed;
+  }
+
+
+  private getPriorityColor(task: Task) {
+
+    if (task.priority && task.priority.color) {
+      return task.priority.color;
+    }
+
+    return '#fff';
+
+  }
+
+  private refreshTable() {
+
+    this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
+
+
   }
 }
