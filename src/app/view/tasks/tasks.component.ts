@@ -10,8 +10,8 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class TasksComponent implements OnInit {
 
-  private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
-  private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
+  displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
+  dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
   tasks: Task[];
 
