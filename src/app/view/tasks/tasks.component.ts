@@ -1,11 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DataHandlerService} from "../../service/data-handler.service";
-import {Task} from 'src/app/model/Task';
-import {MatTableDataSource} from "@angular/material";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { Task } from '../../model/Task';
+import {DataHandlerService} from '../../service/data-handler.service';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
-@Component({a
+@Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css']
@@ -13,7 +11,7 @@ import {MatSort} from "@angular/material/sort";
 export class TasksComponent implements OnInit, AfterViewInit {
 
   // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
-  private displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
+  private displayedColumns: string[] = ['color', 'id', 'name', 'date', 'priority', 'category'];
   private dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
   // ссылки на компоненты таблицы
@@ -27,7 +25,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.dataHandler.tasksSubject.subscribe(tasks => this.tasks = tasks);
+    this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
 
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     this.dataSource = new MatTableDataSource();
@@ -89,7 +87,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
         }
 
         case 'title': {
-          return task.title;
+          return task.name;
         }
       }
     };

@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {Category} from '../model/Category';
 import {Task} from '../model/Task';
 import {TestData} from '../data/TestData';
-import {Subject} from 'rxjs/Subject';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class DataHandlerService {
