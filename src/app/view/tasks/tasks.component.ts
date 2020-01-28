@@ -25,10 +25,11 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
+    //   this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
+  this.dataHandler.getAllTasks().subscribe(tasks => this.tasks = tasks);
 
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
-    this.dataSource = new MatTableDataSource();
+  this.dataSource = new MatTableDataSource();
 
     this.refreshTable();
   }
@@ -86,7 +87,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
           return task.date ? task.date : null;
         }
 
-        case 'title': {
+        case 'name': {
           return task.name;
         }
       }

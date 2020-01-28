@@ -10,20 +10,21 @@ import {Category} from '../../model/Category';
 export class CategoriesComponent implements OnInit {
 
   categories: Category[];
-  selected: Category;
 
-  constructor(private dataHandler: DataHandlerService) { }
+  selectedCategory: Category;
 
+  constructor(private dataHandler: DataHandlerService) {
+  }
+
+  // метод вызывается автоматически после инициализации компонента
   ngOnInit() {
+    this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
 
-   // this.categories = this.dataHandler.getCategories();
-    this.dataHandler.categoriesSubject
-      .subscribe(categories => this.categories = categories);
-    console.log(this.categories);
   }
+
+
   showTasksByCategory(category: Category) {
-    this.selected = category;
-    this.dataHandler.fetchTasksByCategory(category);
+    // this.selectedCategory = category;
+    // this.dataHandler.fillTasksByCategory(category);
   }
-
 }

@@ -13,8 +13,8 @@
   text-align: center;
 }
 
-.col-title {
-  width: 40%;
+.col-name {
+  width: 36%;
 }
 
 .col-priority {
@@ -39,5 +39,5 @@
 }
 
 .col-date {
-  width: 10% !important;
+  width: 14% !important;
 }
