@@ -18,6 +18,7 @@ export class DataHandlerService {
 
   getAllTasks(): Observable<Task[]> {
     return this.taskDaoArray.getAll();
+
   }
 
   getAllCategories(): Observable<Category[]>{
