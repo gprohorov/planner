@@ -14,6 +14,9 @@ export class TaskDAOArray implements TaskDAO {
     return of(TestData.tasks);
   }
 
+  get(id: number): Observable<Task> {
+    return of(TestData.tasks.find(task => task.id === id)); }
+
 
     add(T): Observable<Task> {
         return undefined;
@@ -23,9 +26,10 @@ export class TaskDAOArray implements TaskDAO {
         return undefined;
     }
 
-    get(id: number): Observable<Task> {
-        return undefined;
+    getTasksByCategory(category: Category): Observable<Category[]> {
+    return of(TestData.tasks.filter( task => task.category === category));
     }
+
 
 
 
