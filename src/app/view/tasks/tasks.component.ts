@@ -19,8 +19,14 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
-@Input()
   private tasks: Task[];
+
+  @Input('tasks')
+  private set setTasks(tasks: Task[]) { // напрямую не присваиваем значения в переменную, только через @Input
+    this.tasks = tasks;
+    this.refreshTable();
+  }
+
 
   constructor(private dataHandler: DataHandlerService) {
   }
@@ -28,10 +34,8 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   ngOnInit() {
     //   this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
     //  this.dataHandler.getAllTasks().subscribe(tasks => this.tasks = tasks);
-
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
   this.dataSource = new MatTableDataSource();
-
   this.refreshTable();
   }
 
@@ -65,6 +69,10 @@ export class TasksComponent implements OnInit, AfterViewInit  {
 
   // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
   private refreshTable() {
+
+    if (!this.dataSource) {
+      return;
+    }
 
     this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
 
