@@ -27,7 +27,9 @@
       <!-- название задачи-->
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Название</th>
-        <td *matCellDef="let task" [class.completed]="task.completed" class="col-name" mat-cell>
+        <td *matCellDef="let task" [class.completed]="task.completed" class="col-name" mat-cell
+            (click)="onClickTask(task)"
+        >
 
           {{task.name}}
 

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { Task } from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
@@ -19,14 +19,18 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
+
   private tasks: Task[];
 
+  // текущие задачи для отображения на странице
   @Input('tasks')
   private set setTasks(tasks: Task[]) { // напрямую не присваиваем значения в переменную, только через @Input
     this.tasks = tasks;
     this.refreshTable();
   }
 
+  @Output()
+  updateTask = new EventEmitter<Task>();
 
   constructor(private dataHandler: DataHandlerService) {
   }
@@ -107,5 +111,13 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   private addTableObjects() {
     this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
     this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
+  }
+
+  openEditTaskDialog(task: any) {
+
+  }
+
+  onClickTask(task: Task) {
+    this.updateTask.emit(task);
   }
 }
