@@ -8,25 +8,28 @@ import {DataHandlerService} from './service/data-handler.service';
 import { TasksComponent } from './view/tasks/tasks.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
+import {MatDialogModule, MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
+import { EditTaskDialogComponent } from './dialog/edit-task-dialog/edit-task-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
-    TasksComponent
+    TasksComponent,
+    EditTaskDialogComponent
   ],
   imports: [
     BrowserModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    MatDialogModule
 
   ],
   providers: [DataHandlerService],
+  entryComponents: [EditTaskDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

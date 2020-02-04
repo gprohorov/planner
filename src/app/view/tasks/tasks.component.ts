@@ -2,6 +2,8 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import { Task } from '../../model/Task';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {EditTaskDialogComponent} from '../../dialog/edit-task-dialog/edit-task-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -32,8 +34,9 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   @Output()
   updateTask = new EventEmitter<Task>();
 
-  constructor(private dataHandler: DataHandlerService) {
-  }
+  constructor(private dataHandler: DataHandlerService,
+              private dialog: MatDialog) // работа с диалоговым окном) {
+  {}
 
   ngOnInit() {
     //   this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
@@ -112,9 +115,17 @@ export class TasksComponent implements OnInit, AfterViewInit  {
     this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
     this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
   }
+  // диалоговое редактирования для добавления задачи
+  private openEditTaskDialog(task: Task): void {
 
-  openEditTaskDialog(task: any) {
+    // открытие диалогового окна
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Редактирование задачи'], autoFocus: false});
 
+    dialogRef.afterClosed().subscribe(result => {
+      // обработка результатов
+
+
+    });
   }
 
   onClickTask(task: Task) {
