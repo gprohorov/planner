@@ -52,6 +52,7 @@ export class EditTaskDialogComponent implements OnInit {
 
     // считываем все значения для сохранения в поля задачи
     this.task.name = this.tmpTitle;
+    this.task.category = this.tmpCategory;
 
 
     // передаем добавленную/измененную задачу в обработчик
