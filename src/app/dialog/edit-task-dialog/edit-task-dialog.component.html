@@ -51,26 +51,39 @@
       </mat-select>
     </mat-form-field>
 
-
-
-
-
-
 </mat-dialog-content>
+
+
+<!--  кнопки возможных действий-->
+
 
 
 <!--  кнопки возможных действий-->
 <mat-dialog-actions>
 
+
+
   <button
-    (click)="onConfirm()" [disabled]="inputTitle.value.trim().length==0"
-    color="primary"
-    mat-raised-button>  <!-- если пустой текст - кнопка "Сохранить" будет недоступна -->
+    mat-raised-button color="primary"
+    (click)="onConfirm()"
+    [disabled]="inputTitle.value.trim().length==0">  <!-- если пустой текст - кнопка "Сохранить" будет недоступна -->
     Сохранить
   </button>
 
 
-  <button (click)="onCancel()" mat-raised-button>Отмена</button>
+  <button mat-raised-button (click)="onCancel()">Отмена</button>
+
+
+
+  <button
+    mat-button
+    class="red"
+    (click)="delete()"
+
+  >
+    Удалить задачу
+
+  </button>
 
 
 </mat-dialog-actions>

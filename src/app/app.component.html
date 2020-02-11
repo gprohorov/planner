@@ -84,7 +84,9 @@
 
           <div class="col-12">
             <app-tasks [tasks]="tasks"
+                       (deleteTask)="onDeleteTask($event)"
                  (updateTask) = "onUpdateTask($event)">
+
             </app-tasks>
           </div>
         </div>
