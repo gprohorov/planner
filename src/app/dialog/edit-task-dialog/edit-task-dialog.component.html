@@ -55,14 +55,10 @@
 
 
 <!--  кнопки возможных действий-->
-
-
-
-<!--  кнопки возможных действий-->
 <mat-dialog-actions>
 
 
-
+<!--  <div class="col-md-5 col-12" >-->
   <button
     mat-raised-button color="primary"
     (click)="onConfirm()"
@@ -73,17 +69,41 @@
 
   <button mat-raised-button (click)="onCancel()">Отмена</button>
 
+  <!--  </div>-->
 
+
+
+  <button
+    mat-button class="green"
+    *ngIf="!task.completed"
+    (click)="complete()"
+  >
+    Завершить задачу
+  </button>
+
+  <button
+    mat-button class="green"
+    (click)="activate()"
+    *ngIf="task.completed">
+
+    Активировать
+
+  </button>
 
   <button
     mat-button
     class="red"
     (click)="delete()"
-
   >
     Удалить задачу
 
   </button>
+
+
+
+
+
+
 
 
 </mat-dialog-actions>

@@ -118,7 +118,7 @@ export class TasksComponent implements OnInit, AfterViewInit  {
     this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
     this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
   }
-  // диалоговое редактирования для добавления задачи
+
   // диалоговое редактирования для добавления задачи
   private openEditTaskDialog(task: Task): void {
 
@@ -130,6 +130,21 @@ export class TasksComponent implements OnInit, AfterViewInit  {
 
     dialogRef.afterClosed().subscribe(result => {
       // обработка результатов
+
+      if (result === 'complete') {
+        task.completed = true; // ставим статус задачи как выполненная
+        this.updateTask.emit(task);
+      }
+
+
+      if (result === 'activate') {
+        task.completed = false; // возвращаем статус задачи как невыполненная
+        this.updateTask.emit(task);
+        return;
+      }
+
+
+
 
       if (result === 'delete') {
         this.deleteTask.emit(task);
