@@ -6,11 +6,12 @@ import { CategoriesComponent } from './view/categories/categories.component';
 import {DataHandlerService} from './service/data-handler.service';
 import { TasksComponent } from './view/tasks/tasks.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 import {
-    MatButtonModule, MatDatepickerModule,
+    MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -46,8 +47,9 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
         MatButtonModule,
         MatIconModule,
         MatOptionModule,
-        MatSelectModule
-
+        MatSelectModule,
+      MatDatepickerModule,
+      MatNativeDateModule
 
     ],
   providers: [DataHandlerService],
