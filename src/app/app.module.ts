@@ -10,14 +10,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import {
-  MatButtonModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule, MatOptionModule,
-  MatPaginatorModule, MatSelectModule,
-  MatSortModule,
-  MatTableModule
+    MatButtonModule, MatDatepickerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule, MatOptionModule,
+    MatPaginatorModule, MatSelectModule,
+    MatSortModule,
+    MatTableModule
 } from '@angular/material';
 
 import { EditTaskDialogComponent } from './dialog/edit-task-dialog/edit-task-dialog.component';
@@ -33,22 +33,23 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     EditTaskDialogComponent,
     ConfirmDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatOptionModule,
-    MatSelectModule
+    imports: [
+        BrowserModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatOptionModule,
+        MatSelectModule
 
-  ],
+
+    ],
   providers: [DataHandlerService],
   entryComponents: [EditTaskDialogComponent,
     ConfirmDialogComponent],

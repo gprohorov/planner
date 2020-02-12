@@ -25,6 +25,7 @@ export class EditTaskDialogComponent implements OnInit {
   private tmpTitle: string;
   private tmpCategory: Category;
   private tmpPriority: Priority;
+  private tmpDate: any;
 
   // сохраняем все значения в отдельные переменные
 
@@ -101,6 +102,7 @@ export class EditTaskDialogComponent implements OnInit {
   }
 
   // делаем статус задачи "незавершенным" (активируем)
+
   private activate() {
     this.dialogRef.close('activate');
   }
