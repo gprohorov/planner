@@ -9,6 +9,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 
+import {registerLocaleData} from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
 
 import {
     MatButtonModule,
@@ -24,6 +28,7 @@ import {
 import { EditTaskDialogComponent } from './dialog/edit-task-dialog/edit-task-dialog.component';
 import {FormsModule} from '@angular/forms';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { TaskDatePipe } from './pipe/task-date.pipe';
 
 
 @NgModule({
@@ -32,7 +37,8 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     CategoriesComponent,
     TasksComponent,
     EditTaskDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TaskDatePipe
   ],
     imports: [
         BrowserModule,

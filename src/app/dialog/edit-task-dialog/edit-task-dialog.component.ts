@@ -25,7 +25,7 @@ export class EditTaskDialogComponent implements OnInit {
   private tmpTitle: string;
   private tmpCategory: Category;
   private tmpPriority: Priority;
-  private tmpDate: any;
+  private tmpDate: Date;
 
   // сохраняем все значения в отдельные переменные
 
@@ -46,7 +46,8 @@ export class EditTaskDialogComponent implements OnInit {
     // чтобы можно было отменить изменения, а то будут сразу записываться в задачу)
     this.tmpTitle = this.task.name;
     this.tmpCategory = this.task.category;
-    this.tmpPriority = this.task.priority
+    this.tmpPriority = this.task.priority;
+    this.tmpDate = this.task.date;
 
 
     this.dataHandler.getAllCategories().subscribe(items => this.categories = items);
@@ -63,6 +64,7 @@ export class EditTaskDialogComponent implements OnInit {
     this.task.name = this.tmpTitle;
     this.task.category = this.tmpCategory;
     this.task.priority = this.tmpPriority;
+    this.task.date = this.tmpDate;
 
 
     // передаем добавленную/измененную задачу в обработчик
