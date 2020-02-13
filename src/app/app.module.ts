@@ -15,14 +15,14 @@ import localeRu from '@angular/common/locales/ru';
 registerLocaleData(localeRu);
 
 import {
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule, MatOptionModule,
-    MatPaginatorModule, MatSelectModule,
-    MatSortModule,
-    MatTableModule
+  MatButtonModule, MatCheckboxModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule, MatOptionModule,
+  MatPaginatorModule, MatSelectModule,
+  MatSortModule,
+  MatTableModule
 } from '@angular/material';
 
 import { EditTaskDialogComponent } from './dialog/edit-task-dialog/edit-task-dialog.component';
@@ -55,7 +55,8 @@ import { TaskDatePipe } from './pipe/task-date.pipe';
         MatOptionModule,
         MatSelectModule,
       MatDatepickerModule,
-      MatNativeDateModule
+      MatNativeDateModule,
+      MatCheckboxModule
 
     ],
   providers: [DataHandlerService],
