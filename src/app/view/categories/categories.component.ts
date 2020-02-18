@@ -1,7 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DataHandlerService} from '../../service/data-handler.service';
 import {Category} from '../../model/Category';
+import {EditCategoryDialogComponent} from '../../dialog/edit-category-dialog/edit-category-dialog.component';
+import {MatDialog} from '@angular/material';
 
+// @ts-ignore
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -9,19 +12,34 @@ import {Category} from '../../model/Category';
 })
 export class CategoriesComponent implements OnInit {
 
-  @Input()
-  private categories: Category[];
 
+  @Input()
+  categories: Category[];
+
+  // выбрали категорию из списка
   @Output()
   selectCategory = new EventEmitter<Category>();
+
+  // удалили категорию
+  @Output()
+  deleteCategory = new EventEmitter<Category>();
+
+  // изменили категорию
+  @Output()
+  updateCategory = new EventEmitter<Category>();
+
+  @Input()
   selectedCategory: Category;
 
-  constructor(private dataHandler: DataHandlerService) {
-  }
+
+
+
+  constructor(private dataHandler: DataHandlerService,
+              private dialog: MatDialog) {}
 
   indexMouseMove: number;
   // метод вызывается автоматически после инициализации компонента
- 
+
   ngOnInit() {
    // this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
 
@@ -40,11 +58,35 @@ export class CategoriesComponent implements OnInit {
     this.selectCategory.emit(this.selectedCategory);
   }
 
-  showEditIcon(param) {
-    
+
+  // сохраняет индекс записи категории, над который в данный момент проходит мышка (и там отображается иконка редактирования)
+  private showEditIcon(index: number) {
+    this.indexMouseMove = index;
   }
 
-  openEditDialog(category: Category) {
-    
+// диалоговое окно для редактирования категории
+  private openEditDialog(category: Category) {
+    const dialogRef = this.dialog.open(EditCategoryDialogComponent, {
+      data: [category.name, 'Редактирование категории'],
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === 'delete') { // нажали удалить
+
+        this.deleteCategory.emit(category); // вызываем внешний обработчик
+
+        return;
+      }
+
+      if (typeof (result) === 'string') { // нажали сохранить
+        category.name = result as string;
+
+        this.updateCategory.emit(category); // вызываем внешний обработчик
+        return;
+      }
+    });
   }
+
 }
