@@ -19,8 +19,9 @@ export class CategoriesComponent implements OnInit {
   constructor(private dataHandler: DataHandlerService) {
   }
 
-
+  indexMouseMove: number;
   // метод вызывается автоматически после инициализации компонента
+ 
   ngOnInit() {
    // this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
 
@@ -37,5 +38,13 @@ export class CategoriesComponent implements OnInit {
 
     // вызываем внешний обработчик и передаем туда выбранную категорию
     this.selectCategory.emit(this.selectedCategory);
+  }
+
+  showEditIcon(param) {
+    
+  }
+
+  openEditDialog(category: Category) {
+    
   }
 }
