@@ -89,7 +89,11 @@
           <div class="col-12">
             <app-tasks [tasks]="tasks"
                        (deleteTask)="onDeleteTask($event)"
-                 (updateTask) = "onUpdateTask($event)">
+                      (updateTask) = "onUpdateTask($event)"
+                       (filterByStatus)="onFilterTasksByStatus($event)"
+                       (filterByTitle)="onSearchTasks($event)"
+
+            >
 
             </app-tasks>
           </div>

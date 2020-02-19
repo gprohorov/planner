@@ -24,6 +24,11 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
 
+
+  // поиск
+  private searchTaskText: string; // текущее значение для поиска задач
+  private selectedStatusFilter: boolean = null;   // по-умолчанию будут показываться задачи по всем статусам (решенные и нерешенные)
+
   private tasks: Task[];
 
   // текущие задачи для отображения на странице
@@ -39,9 +44,14 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   @Output()
   deleteTask = new EventEmitter<Task>();
 
+  @Output()
+  filterByTitle = new EventEmitter<string>();
+
+  @Output()
+  filterByStatus = new EventEmitter<boolean>();
+
   constructor(private dataHandler: DataHandlerService,
-              private dialog: MatDialog) // работа с диалоговым окном) {
-  {}
+              private dialog: MatDialog) {}
 
   ngOnInit() {
     //   this.dataHandler.taskSubject.subscribe(tasks => this.tasks = tasks);
@@ -138,22 +148,16 @@ export class TasksComponent implements OnInit, AfterViewInit  {
         this.updateTask.emit(task);
       }
 
-
       if (result === 'activate') {
         task.completed = false; // возвращаем статус задачи как невыполненная
         this.updateTask.emit(task);
         return;
       }
 
-
-
-
       if (result === 'delete') {
         this.deleteTask.emit(task);
         return;
       }
-
-
 
       if (result as Task) { // если нажали ОК и есть результат
         this.updateTask.emit(task);
@@ -187,7 +191,20 @@ export class TasksComponent implements OnInit, AfterViewInit  {
     this.updateTask.emit(task);
   }
 
+  // фильтрация по названию
+  private onFilterByTitle() {
+    this.filterByTitle.emit(this.searchTaskText);
+  }
+
+  // фильтрация по статусу
+  private onFilterByStatus(value: boolean) {
+
+    // на всякий случай проверяем изменилось ли значение (хотя сам гуишный компонент должен это делать)
+    if (value !== this.selectedStatusFilter) {
+      this.selectedStatusFilter = value;
+      this.filterByStatus.emit(this.selectedStatusFilter);
+    }
 
 
-
+}
 }

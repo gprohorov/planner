@@ -16,6 +16,12 @@ export class AppComponent implements OnInit {
 
   private selectedCategory: Category = null;
 
+  // поиск
+  private searchTaskText = ''; // текущее значение для поиска задач
+
+  // фильтрация
+  private statusFilter: boolean;
+
   constructor(
     private dataHandler: DataHandlerService, // фасад для работы с данными
   ) {
@@ -90,6 +96,32 @@ export class AppComponent implements OnInit {
   private onUpdateCategory(category: Category) {
     this.dataHandler.updateCategory(category).subscribe(() => {
       this.onSelectCategory(this.selectedCategory);
+    });
+  }
+
+
+
+  // поиск задач
+  private onSearchTasks(searchString: string) {
+    this.searchTaskText = searchString;
+    this.updateTasks();
+  }
+
+  // фильтрация задач по статусу (все, решенные, нерешенные)
+  private onFilterTasksByStatus(status: boolean) {
+    this.statusFilter = status;
+    this.updateTasks();
+  }
+
+
+  private updateTasks() {
+    this.dataHandler.searchTasks(
+      this.selectedCategory,
+      this.searchTaskText,
+      this.statusFilter,
+      null
+    ).subscribe((tasks: Task[]) => {
+      this.tasks = tasks;
     });
   }
 
