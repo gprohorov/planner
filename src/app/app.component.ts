@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Task } from './model/Task';
 import {DataHandlerService} from './service/data-handler.service';
 import {Category} from './model/Category';
+import {Priority} from './model/Priority';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +14,16 @@ export class AppComponent implements OnInit {
 
   tasks: Task[];
   categories: Category[];
-
+  private priorities: Priority[]; // все приоритеты
   private selectedCategory: Category = null;
 
   // поиск
   private searchTaskText = ''; // текущее значение для поиска задач
 
+
+
   // фильтрация
+  private priorityFilter: Priority;
   private statusFilter: boolean;
 
   constructor(
@@ -29,7 +33,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // this.dataHandler.getAllTasks().subscribe(tasks => this.tasks = tasks);
     this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
-
+    this.dataHandler.getAllPriorities().subscribe(priorities => this.priorities = priorities);
     this.onSelectCategory(null); // показать все задачи
 
   }
@@ -108,6 +112,7 @@ export class AppComponent implements OnInit {
   }
 
   // фильтрация задач по статусу (все, решенные, нерешенные)
+
   private onFilterTasksByStatus(status: boolean) {
     this.statusFilter = status;
     this.updateTasks();
@@ -119,7 +124,7 @@ export class AppComponent implements OnInit {
       this.selectedCategory,
       this.searchTaskText,
       this.statusFilter,
-      null
+      this.priorityFilter
     ).subscribe((tasks: Task[]) => {
       this.tasks = tasks;
     });
