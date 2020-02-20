@@ -6,6 +6,7 @@ import {EditTaskDialogComponent} from '../../dialog/edit-task-dialog/edit-task-d
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../dialog/confirm-dialog/confirm-dialog.component';
 import {Priority} from '../../model/Priority';
+import {Category} from '../../model/Category';
 
 @Component({
   selector: 'app-tasks',
@@ -34,11 +35,17 @@ export class TasksComponent implements OnInit, AfterViewInit  {
   private tasks: Task[];
 
   // текущие задачи для отображения на странице
+
   @Input('tasks')
   private set setTasks(tasks: Task[]) { // напрямую не присваиваем значения в переменную, только через @Input
     this.tasks = tasks;
     this.refreshTable();
   }
+  @Input()
+  selectedCategory: Category;
+
+  @Output()
+  selectCategory = new EventEmitter<Category>(); // нажали на категорию из списка задач
 
   @Output()
   updateTask = new EventEmitter<Task>();
@@ -54,6 +61,9 @@ export class TasksComponent implements OnInit, AfterViewInit  {
 
   @Output()
   filterByPriority = new EventEmitter<Priority>();
+
+  @Output()
+  addTask = new EventEmitter<Task>();
 
 
   constructor(private dataHandler: DataHandlerService,
@@ -233,5 +243,19 @@ export class TasksComponent implements OnInit, AfterViewInit  {
     }
   }
 
+  // диалоговое окно для добавления задачи
+  private openAddTaskDialog() {
 
+    // то же самое, что и при редактировании, но только передаем пустой объект Task
+    const task = new Task(null, '', false, null, this.selectedCategory);
+
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Добавление задачи']});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // если нажали ОК и есть результат
+        this.addTask.emit(task);
+      }
+    });
+
+  }
 }

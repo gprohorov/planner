@@ -119,6 +119,12 @@ export class AppComponent implements OnInit {
   }
 
 
+  // фильтрация задач по приоритету
+  private onFilterTasksByPriority(priority: Priority) {
+    this.priorityFilter = priority;
+    this.updateTasks();
+  }
+
   private updateTasks() {
     this.dataHandler.searchTasks(
       this.selectedCategory,
@@ -130,4 +136,15 @@ export class AppComponent implements OnInit {
     });
   }
 
+
+  // добавление задачи
+  private onAddTask(task: Task) {
+
+    this.dataHandler.addTask(task).subscribe(result => {
+
+      this.updateTasks();
+
+    });
+
+  }
 }
