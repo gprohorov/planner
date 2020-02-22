@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   // фильтрация
   private priorityFilter: Priority;
   private statusFilter: boolean;
+  private searchCategoryText: string;
 
   constructor(
     private dataHandler: DataHandlerService, // фасад для работы с данными
@@ -153,5 +154,16 @@ export class AppComponent implements OnInit {
   }
   private updateCategories() {
     this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
+  }
+
+
+  // поиск категории
+  private onSearchCategory(title: string) {
+
+    this.searchCategoryText = title;
+
+    this.dataHandler.searchCategories(title).subscribe(categories => {
+      this.categories = categories;
+    });
   }
 }

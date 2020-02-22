@@ -32,12 +32,14 @@ export class CategoriesComponent implements OnInit {
   @Output()
   addCategory = new EventEmitter<string>(); // передаем только название новой категории
 
-
+  // поиск категории
+  @Output()
+  searchCategory = new EventEmitter<string>(); // передаем строку для поиска
 
   @Input()
   selectedCategory: Category;
 
-
+  searchCategoryTitle: string;
 
 
   constructor(private dataHandler: DataHandlerService,
@@ -95,6 +97,7 @@ export class CategoriesComponent implements OnInit {
     });
   }
 // диалоговое окно для добавления категории
+
   private openAddDialog() {
 
     const dialogRef = this.dialog.open(EditCategoryDialogComponent, {data: ['', 'Добавление категории'], width: '400px'});
@@ -104,5 +107,18 @@ export class CategoriesComponent implements OnInit {
         this.addCategory.emit(result as string); // вызываем внешний обработчик
       }
     });
+  }
+
+
+  // поиск категории
+  private search() {
+
+
+    if (this.searchCategoryTitle == null ) {
+      return;
+    }
+
+    this.searchCategory.emit(this.searchCategoryTitle);
+
   }
 }
