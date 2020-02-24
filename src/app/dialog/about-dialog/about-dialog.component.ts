@@ -9,6 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class AboutDialogComponent implements OnInit {
 
   private dialogTitle: string;
+
   private message: string;
 
   constructor(
