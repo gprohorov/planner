@@ -32,7 +32,24 @@
 
 
 
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .line {
   border-bottom: 1px solid #dadada;
   padding-top: 20px;
+}
+
+.gray {
+  color: #8f8f8f;
+}
+
+.main-panel > .content{
+  margin-top: 30px !important;
+}
+
+app-header{
+  width: 100%;
 }
