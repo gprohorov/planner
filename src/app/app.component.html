@@ -18,11 +18,18 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
          <app-header></app-header>
-      <app-stat></app-stat>
+ <!--     <app-stat></app-stat>-->
     </nav>
     <!-- End Navbar -->
     <div class="content">
       <div class="container-fluid">
+
+        <!-- статистика  -->
+        <app-stat
+          [totalTasksInCategory]="totalTasksCountInCategory"
+          [completeTasksInCategory]="completedCountInCategory"
+          [uncompleteTasksInCategory]="uncompletedCountInCategory"
+        ></app-stat>
 
 
         <div class="row">

@@ -3,6 +3,7 @@ import { Task } from './model/Task';
 import {DataHandlerService} from './service/data-handler.service';
 import {Category} from './model/Category';
 import {Priority} from './model/Priority';
+import {zip} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,11 @@ export class AppComponent implements OnInit {
   // поиск
   private searchTaskText = ''; // текущее значение для поиска задач
 
+  // статистика
+  private totalTasksCountInCategory: number;
+  private completedCountInCategory: number;
+  private uncompletedCountInCategory: number;
+  private uncompletedTotalTasksCount: number;
 
 
   // фильтрация
@@ -53,7 +59,7 @@ export class AppComponent implements OnInit {
     ).subscribe(tasks => {
       this.tasks = tasks;
     });
-
+    this.updateTasksAndStat();
   }
 // обновление задачи
   private onUpdateTask(task: Task) {
@@ -68,6 +74,7 @@ export class AppComponent implements OnInit {
         this.tasks = tasks;
       });
     });
+    this.updateTasksAndStat();
 
   }
 
@@ -85,7 +92,7 @@ export class AppComponent implements OnInit {
       });
     });
 
-
+    this.updateTasksAndStat();
   }
 
 
@@ -109,21 +116,21 @@ export class AppComponent implements OnInit {
   // поиск задач
   private onSearchTasks(searchString: string) {
     this.searchTaskText = searchString;
-    this.updateTasks();
+    this.updateTasksAndStat();
   }
 
   // фильтрация задач по статусу (все, решенные, нерешенные)
 
   private onFilterTasksByStatus(status: boolean) {
     this.statusFilter = status;
-    this.updateTasks();
+    this.updateTasksAndStat();
   }
 
 
   // фильтрация задач по приоритету
   private onFilterTasksByPriority(priority: Priority) {
     this.priorityFilter = priority;
-    this.updateTasks();
+    this.updateTasksAndStat();
   }
 
   private updateTasks() {
@@ -143,7 +150,7 @@ export class AppComponent implements OnInit {
 
     this.dataHandler.addTask(task).subscribe(result => {
 
-      this.updateTasks();
+      this.updateTasksAndStat();
 
     });
 
@@ -166,4 +173,32 @@ export class AppComponent implements OnInit {
       this.categories = categories;
     });
   }
+
+  // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
+  private updateTasksAndStat() {
+
+    this.updateTasks(); // обновить список задач
+
+    // обновить переменные для статистики
+    this.updateStat();
+
+  }
+
+  // обновить статистику
+  private updateStat() {
+    zip(
+      this.dataHandler.getTotalCountInCategory(this.selectedCategory),
+      this.dataHandler.getCompletedCountInCategory(this.selectedCategory),
+      this.dataHandler.getUncompletedCountInCategory(this.selectedCategory),
+      this.dataHandler.getUncompletedTotalCount())
+
+      .subscribe(array => {
+        this.totalTasksCountInCategory = array[0];
+        this.completedCountInCategory = array[1];
+        this.uncompletedCountInCategory = array[2];
+        this.uncompletedTotalTasksCount = array[3]; // нужно для категории Все
+      });
+  }
+
+
 }
