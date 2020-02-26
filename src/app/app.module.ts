@@ -38,6 +38,7 @@ import { StatCardComponent } from './view/stat/stat-card/stat-card.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import { PrioritiesComponent } from './view/priorities/priorities.component';
 import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialog.component';
+import { EditPriorityDialogComponent } from './dialog/edit-priority-dialog/edit-priority-dialog.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialo
     StatComponent,
     StatCardComponent,
     PrioritiesComponent,
-    SettingsDialogComponent
+    SettingsDialogComponent,
+    EditPriorityDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -83,7 +85,8 @@ import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialo
     ConfirmDialogComponent,
     EditCategoryDialogComponent,
   AboutDialogComponent,
-    SettingsDialogComponent],
+    SettingsDialogComponent,
+  EditPriorityDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

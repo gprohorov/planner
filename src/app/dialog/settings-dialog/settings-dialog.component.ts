@@ -17,6 +17,7 @@ export class SettingsDialogComponent implements OnInit {
 
   private priorities: Priority[];
 
+
   constructor(
     private dialogRef: MatDialogRef<SettingsDialogComponent>, // для возможности работы с текущим диалог. окном
     private dataHandler: DataHandlerService // ссылка на сервис для работы с данными
@@ -36,5 +37,21 @@ export class SettingsDialogComponent implements OnInit {
   }
 
 
+  // т.к. мы меняем значения в массивах, то изменения сразу отражаются на списке задач (не требуется доп. обновления)
+
+  // добавили приоритет
+  private onAddPriority(priority: Priority): void {
+    this.dataHandler.addPriority(priority).subscribe();
+  }
+
+  // удалили приоритет
+  private onDeletePriority(priority: Priority): void {
+    this.dataHandler.deletePriority(priority.id).subscribe();
+  }
+
+  // обновили приоритет
+  private onUpdatePriority(priority: Priority): void {
+    this.dataHandler.updatePriority(priority).subscribe();
+  }
 
 }
