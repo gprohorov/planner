@@ -39,7 +39,26 @@ export class CategoriesComponent implements OnInit {
   @Input()
   selectedCategory: Category;
 
+  // категории с кол-вом активных задач для каждой из них
+   selectedCategoryMap: Map<Category, number>;
+
+  // коллекция категорий с кол-вом незавершенных задач для каждой из них
+  private categoryMap = new Map<Category, number>();
+
+  // категории с кол-вом активных задач для каждой из них
+  @Input('categoryMap')
+  set setCategoryMap(categoryMap: Map<Category, number>) {
+    this.selectedCategoryMap = categoryMap;
+  }
+
+
   searchCategoryTitle: string;
+
+
+  // кол-во невыполненных задач всего
+  @Input()
+  uncompletedTotal: number;
+
 
 
   constructor(private dataHandler: DataHandlerService,
