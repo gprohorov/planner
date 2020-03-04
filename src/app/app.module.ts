@@ -39,6 +39,7 @@ import {ColorPickerModule} from 'ngx-color-picker';
 import { PrioritiesComponent } from './view/priorities/priorities.component';
 import { SettingsDialogComponent } from './dialog/settings-dialog/settings-dialog.component';
 import { EditPriorityDialogComponent } from './dialog/edit-priority-dialog/edit-priority-dialog.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { EditPriorityDialogComponent } from './dialog/edit-priority-dialog/edit-
       MatDatepickerModule,
       MatNativeDateModule,
       MatCheckboxModule,
-      ColorPickerModule
+      ColorPickerModule,
+      HttpClientModule
 
     ],
   providers: [DataHandlerService],

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import {Category} from '../model/Category';
 import {Task} from '../model/Task';
 import {TestData} from '../data/TestData';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {TaskDAOArray} from '../dao/impl/TaskDAOArray';
 import {CategoryDAOArray} from '../dao/impl/CategoryDAOArray';
 import {Priority} from '../model/Priority';
 import {PriorityDAOArray} from '../dao/impl/PriorityDAOArray';
+import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +17,9 @@ export class DataHandlerService {
   private categoryDaoArray = new CategoryDAOArray();
   private priorityDaoArray = new PriorityDAOArray();
 
-  constructor() {
-  }
+
+
+  constructor(private http: HttpClient){}
 
   getAllTasks(): Observable<Task[]> {
     return this.taskDaoArray.getAll();
@@ -27,9 +29,18 @@ export class DataHandlerService {
     return  this.categoryDaoArray.getAll();
   }
 
-  getAllPriorities(): Observable<Priority[]>{
-    return  this.priorityDaoArray.getAll();
+  /*
+    getAllPriorities(): Observable<Priority[]> {
+      return  this.priorityDaoArray.getAll();
   }
+
+*/
+
+  getAllPriorities(): Observable<any> {
+   return  this.http.get('http://localhost:8080/api/priority/list');
+  }
+
+
 
   updateTask(task: Task): Observable<Task> {
     return this.taskDaoArray.update(task);

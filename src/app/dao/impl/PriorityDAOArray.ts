@@ -6,15 +6,26 @@ import {TestData} from '../../data/TestData';
 
 
 export class PriorityDAOArray implements PriorityDAO {
+
+
+
   get(id: number): Observable<Priority> {
 
     return of(TestData.priorities.find(priority => priority.id === id));
   }
 
+
+
+
   getAll(): Observable<Priority[]> {
 
     return of(TestData.priorities);
   }
+
+
+
+
+
 
   add(priority: Priority): Observable<Priority> {
 
